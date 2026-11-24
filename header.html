@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vone Live Header</title>
+  <link rel="preload" href="style.css" as="style" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="vone-header" id="site-header">
+    <div class="vone-container vone-nav-wrap">
+      <a href="/#home" class="vone-logo" aria-label="Vone Live Home">
+        <img src="https://vonelive.in/wp-content/uploads/2026/09/vone-bio.png" alt="Vone Live Logo" width="60"
+          height="40" referrerpolicy="no-referrer" class="vone-logo-img" />
+        <span>Vone</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="vone-nav-links">
+          <li><a href="/#home">Home</a></li>
+          <li><a href="/#host-registration">Host</a></li>
+          <li><a href="/#agent-registration">Agent</a></li>
+          <li><a href="/#contact">Contact</a></li>
+          <li><a href="https://vonelive.app/blog/">Blog</a></li>
+          <li><a href="/#what-is-vone">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="vone-nav-actions">
+        <a href="https://invite-vone.com/JW25ZJ" target="_blank" rel="noopener noreferrer"
+          class="vone-btn vone-btn--primary vone-btn--sm">Become Host</a>
+        <a href="https://vp.vone.live/TM3jRG"
+          target="_blank" rel="noopener noreferrer" class="vone-btn vone-btn--violet vone-btn--sm">Become Agent</a>
+      </div>
+
+      <button type="button" class="vone-nav-toggle" id="vone-nav-toggle" aria-expanded="false"
+        aria-controls="vone-mobile-menu" aria-label="Toggle navigation menu">
+        &#9776;
+      </button>
+    </div>
+
+    <div class="vone-mobile-menu" id="vone-mobile-menu">
+      <ul class="vone-mobile-links">
+        <li><a href="/#home">Home</a></li>
+        <li><a href="/#host-registration">Host</a></li>
+        <li><a href="/#agent-registration">Agent</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="https://vonelive.app/blog/">Blog</a></li>
+        <li><a href="/#what-is-vone">About</a></li>
+      </ul>
+      <div class="vone-mobile-actions">
+        <a href="https://invite-vone.com/JW25ZJ" target="_blank" rel="noopener noreferrer"
+          class="vone-btn vone-btn--primary">Become Host</a>
+        <a href="https://vp.vone.live/TM3jRG"
+          target="_blank" rel="noopener noreferrer" class="vone-btn vone-btn--violet">Become Agent</a>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    (function () {
+      var path = (window.location.pathname || '').replace(/\/+$/, '').toLowerCase();
+      if (path === '/agency') {
+        window.location.replace('https://vp.vone.live/TM3jRG');
+        return;
+      }
+      if (path === '/host') {
+        window.location.replace('/#host-registration');
+        return;
+      }
+      if (path === '/about_us' || path === '/about-us' || path === '/about') {
+        window.location.replace('/#what-is-vone');
+        return;
+      }
+
+      var toggle = document.getElementById('vone-nav-toggle');
+      var menu = document.getElementById('vone-mobile-menu');
+      if (!toggle || !menu) return;
+
+      toggle.addEventListener('click', function () {
+        var isOpen = menu.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      var links = menu.querySelectorAll('a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function () {
+          menu.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      var header = document.getElementById('site-header');
+      if (header) {
+        var scrollTick = false;
+        function syncHeaderScroll() {
+          scrollTick = false;
+          var st = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+          header.classList.toggle('is-scrolled', st > 16);
+        }
+        function onAnyScroll() {
+          if (!scrollTick) {
+            scrollTick = true;
+            requestAnimationFrame(syncHeaderScroll);
+          }
+        }
+        window.addEventListener('scroll', onAnyScroll, { passive: true });
+        document.addEventListener('scroll', onAnyScroll, { passive: true, capture: true });
+        syncHeaderScroll();
+      }
+    })();
+  </script>
+</body>
+
+</html>
